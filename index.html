@@ -116,8 +116,7 @@
             const relationInfo = document.createElement("div");
             relationInfo.classList.add("relation-info");
             relationInfo.innerHTML = `
-                <p>${relation.name}</p>
-                <p>${relation.description}</p>
+                <p>${relation.name}: ${relation.description}</p>
                 <a href="${relation.link}" target="_blank">Learn more</a>`;
             relationsSection.appendChild(relationInfo);
         });
