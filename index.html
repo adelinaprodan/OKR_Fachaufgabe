@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OKR</title>
+    <link rel="stylesheet" href="OKRstyle.css">
+</head>
+<body>
+    <div id="okr-container">
+    </div>
+    <script>
+        const data = {
+            "OKR": [
+                {
+                    "objective": "OKR on a page",
+                    "description": "We can display all relevant information about an OKR on an HTML page.",
+                    "image": "https://blog.planview.com/de/wp-content/uploads/2021/08/okrs-aug-2021.jpg",
+                    "keyResults": [
+                        {
+                            "description": "We have 3 different UI concepts that can clearly arrange and display the OKR information.",
+                            "progress": 0.6
+                        },
+                        {
+                            "description": "By the end of May, we had implemented one of the UI concepts.",
+                            "progress": 0.4
+                        },
+                        {
+                            "description": "We conducted a review of the HTML page with 10 different users and analyzed the results.",
+                            "progress": 0.2
+                        },
+                        {
+                            "description": "We have the HTML page in productive use in at least one system",
+                            "progress": 0.3
+                        }
+                    ],
+                    "status": "planned",
+                    "start-date": "2024-04-01",
+                    "end-date": "2024-06-30",
+                    "category": "tactical",
+                    "owner": [
+                        {
+                            "name": "Max Mustermann",
+                            "image": "https://img.freepik.com/fotos-kostenlos/portraet-des-mitarbeiters-gluecklich-wieder-bei-der-arbeit-zu-sein_23-2148727615.jpg?t=st=1715073601~exp=1715077201~hmac=860fe8135624812af51d8cc4ee607c319e6f8d8a44abff93a0a1d253dc7ad0de"
+                        }
+                    ],
+                    "relations": [{"name":"What Matters", "description":"Background by John Doerr", "link":"https://www.whatmatters.com/get-started"}]
+                }
+            ]
+        };
+
+        const okr= data.OKR[0];
+        const okrContainer = document.getElementById("okr-container");
+
+        const title = document.createElement("h1");
+        title.textContent = okr.objective;
+        okrContainer.appendChild(title);
+
+        const description = document.createElement("p");
+        description.textContent = okr.description;
+        okrContainer.appendChild(description);
+
+        const image = document.createElement("img");
+        image.src = okr.image;
+        okrContainer.appendChild(image);
+
+        const keyResultsList = document.createElement("ul");
+        okr.keyResults.forEach(result => {
+            const listItem = document.createElement("li");
+            listItem.classList.add("key-result");
+            listItem.innerHTML = `
+                <h3>${result.description}</h3>
+                <div class="progress-bar">
+                    <div class="progress" style="width: ${result.progress * 100}%;"></div>
+                </div>
+                <p1>Progress: ${(result.progress * 100).toFixed(2)}%</p1>`;
+            keyResultsList.appendChild(listItem);
+        });
+        okrContainer.appendChild(keyResultsList);
+
+        const status = document.createElement("p");
+        status.textContent = "Status: " + okr.status;
+        okrContainer.appendChild(status);
+
+        const startDate = document.createElement("p");
+        startDate.textContent = "Start Date: " + okr["start-date"];
+        okrContainer.appendChild(startDate);
+
+        const endDate = document.createElement("p");
+        endDate.textContent = "End Date: " + okr["end-date"];
+        okrContainer.appendChild(endDate);
+
+        const category = document.createElement("p");
+        category.textContent = "Category: " + okr.category;
+        okrContainer.appendChild(category);
+
+        const ownerSection = document.createElement("div");
+        const ownerTitle = document.createElement("h2");
+        ownerTitle.textContent = "Owner(s):";
+        ownerSection.appendChild(ownerTitle);
+        okr.owner.forEach(owner => {
+            const ownerInfo = document.createElement("div");
+            ownerInfo.classList.add("owner-info");
+            ownerInfo.innerHTML = `
+                <img src="${owner.image}" alt="${owner.name}">
+                <p>${owner.name}</p>`;
+            ownerSection.appendChild(ownerInfo);
+        });
+        okrContainer.appendChild(ownerSection);
+
+        const relationsSection = document.createElement("div");
+        const relationsTitle = document.createElement("h2");
+        relationsTitle.textContent = "Related Links:";
+        relationsSection.appendChild(relationsTitle);
+        okr.relations.forEach(relation => {
+            const relationInfo = document.createElement("div");
+            relationInfo.classList.add("relation-info");
+            relationInfo.innerHTML = `
+                <p>${relation.name}</p>
+                <p>${relation.description}</p>
+                <a href="${relation.link}" target="_blank">Learn more</a>`;
+            relationsSection.appendChild(relationInfo);
+        });
+        okrContainer.appendChild(relationsSection);
+    </script>
+</body>
+</html>
